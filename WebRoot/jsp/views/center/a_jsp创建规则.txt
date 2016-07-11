@@ -1,0 +1,17 @@
+模考分析_综合分析	complexAnalysis
+模考分析	examAnalysis
+学习中心管理后台_错误反馈	errorFeedback
+学习中心管理后台_基本信息	basicInformation
+学习中心管理后台_课程题库管理	courseExamManagement
+学习中心管理后台_录入试题_编辑试卷	editPapers
+学习中心管理后台_录入试题_单项选择	          singleEntry
+学习中心管理后台_录入试题_多项选择题录入	  doubleEntry
+学习中心管理后台_录入试题_简答题录入	      shortAnswerentry
+学习中心管理后台_录入试题_判断题录入	      judgeEntry
+学习中心管理后台_录入试题_填空题录入	      fillBlankentry
+学习中心管理后台_密码设置	              passwordSettings
+学习中心管理后台_题库管理_新增题库	          addExam
+学习中心管理后台_题库管理	              新的managerProducts,旧(bankManagement)
+学习中心管理后台_题库管理_编辑	              新的managerProducts,旧(bankManagement)
+学习中心管理后台_最新点评	              latestReviews
+学习中心管理后台_最新消息	              latestNews

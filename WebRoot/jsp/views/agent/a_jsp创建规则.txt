@@ -1,0 +1,8 @@
+成交情况                   turnover
+成交统计                   tradeStatistics
+错误反馈                   errorFeedback
+代理商管理后台信息         agentInfo
+代理项目                   actingProject
+课程开通                   courseOpen
+密码设置                   passwordSettings     
+最新消息                   latestNews

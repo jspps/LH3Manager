@@ -1,0 +1,29 @@
+代理商管理        ===>      adminAgentManage
+			代理排行榜   ======>   adminAgentManage   
+			代理排行榜   ======>   agentTops  
+			奖金设置      ======>   setBonus   
+			
+学习中心管理    ===>      learnCenterManage
+                      学习中心管理   ======>   learnCenterManage 
+                      错误反馈         ======>   errorBack  
+                      
+题库管理          ===>      questionManage_set
+                   课程设置         ======>    questionManage_set 
+                    课程点评        ======>    questionManage_comment  
+                    题库列表        ======>    questionManage_list  
+                    
+订购管理          ===>      orderManage
+                     体验账户          ======>   companyUsers  
+                     批量设置          ======>   companyUsers_setList   
+                     
+集团帐户          ===>      companyUsers
+
+管理用户          ===>      manageUsers
+
+帮助中心          ===>      helpCenter
+
+消息管理          ===>      newsManage
+
+
+				 
+		

@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE urlrewrite PUBLIC "-//tuckey.org//DTD UrlRewrite 4.0//EN"
+	"http://tuckey.org/res/dtds/urlrewrite4.0.dtd">
+<urlrewrite default-match-type="regex">
+	<rule>
+		<from>^/$</from>
+		<to type="redirect">/admin/login</to>
+	</rule>
+	<!-- 后台管理-数据管理admin -->
+	<rule>
+		<from>^/admin$</from>
+		<to type="redirect">/admin/login</to>
+	</rule>
+	<rule>
+		<from>^/admin/(.*)$</from>
+		<to>/reqAdmin/doAdmin/$1</to>
+	</rule>
+	
+	<!-- 后台管理-代理商 -->
+	<rule>
+		<from>^/agent/(.*)$</from>
+		<to>/reqAgent/doAgent/$1</to>
+	</rule>
+	
+	<!-- 后台管理-培训机构(学习中心) -->
+	<rule>
+		<from>^/center/(.*)$</from>
+		<to>/reqCenter/doCenter/$1</to>
+	</rule>
+</urlrewrite>
