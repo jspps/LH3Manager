@@ -7,19 +7,19 @@
 			+ path + "/";
 %>
 <!-- 级联选择课程 -->
-<select name="departid" id="departid" onchange="changeDepart();">
+<select name="departid" id="departid" onchange="changeDepart_Step();">
 	<option value="-1">全部类别</option>
 	<c:forEach items="${adqdepartments}" var = "ent">
 	<option value="${ent.did}">${ent.name}</option>
 	</c:forEach>
 </select>
-<select name="nmMajor" id="nmMajor" onchange="changeMajor();">
+<select name="nmMajor" id="nmMajor" onchange="changeMajor_Step();">
 	<option value="-1">专业</option>
 </select>
-<select name="nmLevel" id="nmLevel" onchange="changeLevel();">
+<select name="nmLevel" id="nmLevel" onchange="changeLevel_Step();">
 	<option value="-1">层次</option>
 </select>
-<select name="nmSub" id="nmSub" onchange="changeSub();">
+<select name="nmSub" id="nmSub" onchange="changeSub_Step();">
 	<option value="-1">科目</option>
 </select>
 <select name="nmArea" id="nmArea">
@@ -27,7 +27,7 @@
 </select>
 
 <script type="text/javascript">
-	function resetSelVal(type){
+	function resetSelVal_Step(type){
 		if(type <= 1){
 			$("#nmMajor").html('<option value="-1">专业</option>');
 		}
@@ -45,9 +45,9 @@
 		}
 	}
 	
-	function changeDepart() {
+	function changeDepart_Step() {
 		var val = $("#departid").val();
-		resetSelVal(1);
+		resetSelVal_Step(1);
 		if(val == "-1"){
 			return;
 		}
@@ -66,7 +66,7 @@
 		$.post(url,data,callBackInFun,"json");
 	};
 	
-	function changeMajor() {
+	function changeMajor_Step() {
 		resetSelVal(2);
 		var val = $("#departid").val();
 		var nmMajor = $("#nmMajor").val();
@@ -88,7 +88,7 @@
 		$.post(url,data,callBackInFun,"json");
 	};
 	
-	function changeLevel() {
+	function changeLevel_Step() {
 		resetSelVal(3);
 		if(val == -1){
 			return;
@@ -115,7 +115,7 @@
 		$.post(url,data,callBackInFun,"json");
 	};
 	
-	function changeSub() {
+	function changeSub_Step() {
 		resetSelVal(4);
 		if(val == -1){
 			return;
