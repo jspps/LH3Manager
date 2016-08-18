@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import com.admin.content.Svc;
 import com.admin.db.bean.Adcourses;
 import com.admin.db.bean.Adqdepartment;
+import com.admin.db.bean.Boughtkinds;
 import com.admin.db.bean.Exam;
 import com.admin.db.bean.Examtype;
 import com.admin.db.bean.Kind;
@@ -24,6 +25,7 @@ import com.admin.db.bean.Kindclass;
 import com.admin.db.bean.Learnhub;
 import com.admin.db.bean.Product;
 import com.admin.db.bean.Product0examtype;
+import com.admin.db.entity.BoughtkindsEntity;
 import com.admin.db.entity.ExamEntity;
 import com.admin.db.entity.ExamtypeEntity;
 import com.admin.db.entity.KindEntity;
@@ -292,6 +294,16 @@ public class IBM4KindController {
 			kind = kind.update();
 			result = Utls.tipMap(result, Utls.Status_Success, "成功!", null);
 		}
+
+		// 修改购买套餐的信息
+		List<Boughtkinds> list = BoughtkindsEntity.getByKindid(kind.getId());
+		for (Boughtkinds item : list) {
+			item.setName(nmProduct);
+			item.setPrice(price);
+			item.setKbi(kbi);
+			item.update();
+		}
+
 		Utls.writeAndClose(response, result);
 	}
 }
