@@ -328,7 +328,7 @@ overflow: hidden;
 .yp_div a.a_yp{background-position:0 0;}
 .yp_div a.a_sp{background-position:0 -32px;}
 .yp_div a.a_bc{background-position:0 -65px;}
-.big_answer p{line-height:30px;height:30px;}
+.big_answer p{line-height:30px;min-height:30px;}
 .big_answer .span span{padding-right:100px;}
 .big_answer .btjx{border:1px solid #c5c5c5;padding:20px;margin-bottom:20px;}
 .lr_content{padding-right:30px;}
@@ -383,9 +383,9 @@ overflow: hidden;
 
 .txsz_info h2{color:#5d5d5d;font-weight:bold;padding-top:20px;}
 .txsz_info h3{color:#5d5d5d;padding:10px 0 0 25px;}
-.txsz_bg{padding:10px 0 0 25px;color:#3f8ec6;border-bottom:1px dashed #bbbbbb;padding-bottom:15px;}
-.txsz_bg span{padding-right:40px;}
-.txsz_bg span.span{color:#5d5d5d;white-space:nowrap;display:inline-block;margin-bottom:15px;}
+.txsz_bg{padding:10px 0 0 25px;color:#3f8ec6;border-bottom:1px dashed #bbbbbb;padding-bottom:15px;word-wrap:break-word;}
+/** .txsz_bg span{padding-right:40px;} */
+.txsz_bg span.span{color:#5d5d5d;/* white-space:nowrap; */ display:inline-block;margin-bottom:15px;}
 .txsz_bg span.span1{color:#5d5d5d;padding-right:0px;}
 .txsz_bg span.span2{padding-right:18px;}
 .txsz_bg span.fr{padding-right:10px;}
