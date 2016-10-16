@@ -17,6 +17,8 @@ import com.admin.logic.Utls;
 @Repository
 public class AdminInterceptor extends HandlerInterceptorAdapter {
 
+	static boolean isDebuging = false;
+	
 	@Override
 	public boolean preHandle(HttpServletRequest request,
 			HttpServletResponse response, Object handler) throws Exception {
@@ -89,7 +91,7 @@ public class AdminInterceptor extends HandlerInterceptorAdapter {
 			}
 		}
 		
-		debugLog(false, request);
+		debugLog(isDebuging, request);
 		return super.preHandle(request, response, handler);
 	}
 	
