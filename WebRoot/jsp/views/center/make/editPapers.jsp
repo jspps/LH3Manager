@@ -83,7 +83,9 @@
 	            </jsp:include>
 	            <c:set var="num" value="${num + 1}"></c:set>
 	       	</c:forEach>
+	       	<i class="clear"></i>
 	       	</div>
+	       	<i class="clear"></i>
 	       	</div>
 		</c:forEach>
         <div class="lrst_btn">

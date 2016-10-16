@@ -315,6 +315,8 @@
 									<a href="javascript:void(0);" onclick="click2CancelModify('clild',${child.id},1);">修改设置</a>
 			                    	<a href="javascript:void(0);" onclick="click2AddQuestion(${child.examid},${child.id},7,${child.gid});">录入试题</a>
 			                    </span>
+			                </div>
+			                <div class="txsz_bg" style="padding-left:0px; border:0px; padding-bottom:0px; min-height:30px;">
 			                	<span class="span">${child.title }</span>
 			                </div>
 			                <div class="txsz_bg" style="padding-left:0px;" typecss="1" clild="${child.id}">
