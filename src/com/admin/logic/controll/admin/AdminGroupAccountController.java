@@ -165,12 +165,12 @@ public class AdminGroupAccountController {
 				return;
 			}
 
-			if (en4OpenCourses.getStatus() == 2) {
-				result = Utls.tipMap(result, Utls.Status_Erro,
-						"失败,该套餐已被该用户使用!");
-				Utls.writeAndClose(response, result);
-				return;
-			}
+//			if (en4OpenCourses.getStatus() == 2) {
+//				result = Utls.tipMap(result, Utls.Status_Erro,
+//						"失败,该套餐已被该用户使用!");
+//				Utls.writeAndClose(response, result);
+//				return;
+//			}
 
 			if (cust == null) {
 				cust = en4OpenCourses.getCustomerFkCustomerid();
@@ -229,6 +229,9 @@ public class AdminGroupAccountController {
 			en4OpenCourses.setKindid(kindid);
 			en4OpenCourses.setRemarks(remarks);
 			en4OpenCourses.setValidity(validity);
+			if(en4OpenCourses.getCreatetime().getTime() != en4OpenCourses.getValidtime().getTime()){
+				en4OpenCourses.setValidtime(DateEx.addDay(DateEx.nowDate(), validity));
+			}
 			en4OpenCourses.update();
 
 			result = Utls.tipMap(result, Utls.Status_Success, "成功!");
