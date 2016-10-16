@@ -366,10 +366,12 @@ public class AdminGroupAccountController {
 					.getByKey(okcustid);
 			if (enCust == null) {
 				result = Utls.tipMap(result, Utls.Status_Erro, "失败,该开通用户为空!");
-			} else if (enCust.getStatus() != 0) {
-				result = Utls
-						.tipMap(result, Utls.Status_Erro, "失败,该开通用户状态不正常!");
-			} else {
+			}
+//			else if (enCust.getStatus() != 0) {
+//				result = Utls
+//						.tipMap(result, Utls.Status_Erro, "失败,该开通用户状态不正常!");
+//			}
+			else {
 				enCust.delete();
 				result = Utls.tipMap(result, Utls.Status_Success, "成功!");
 			}
