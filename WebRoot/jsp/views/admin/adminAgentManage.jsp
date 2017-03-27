@@ -76,6 +76,7 @@
 							<th>代理编号</th>
 							<th>所在地</th>
 							<th>登录用户名</th>
+							<th>登录密码</th>
 							<th>成交量</th>
 							<th>实得佣金</th>
 							<th>代理截止时间设置</th>
@@ -90,7 +91,8 @@
 								<td>${curAgent.uname}</td>
 							    <td onclick="skip2Agent(${curAgent.accountid});">${curAgent.code}</td>  
 								<td>${curAgent.seat }</td>
-								 <td>${curAgent.accountFkAccountid.phone}</td>  
+								<td>${curAgent.accountFkAccountid.phone}</td> 
+								<td>${curAgent.accountFkAccountid.lgpwd}</td> 
 								<td>${curAgent.volume }</td>
 								<td>${curAgent.curmoney }</td>
 								<td><input style="width: 200px;" id = "setTime_${curAgent.agid}" onfocus="WdatePicker({dateFmt:'yyyy-MM-dd'})" class="Wdate" value="${curAgent.endtime}"></td>

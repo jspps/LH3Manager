@@ -56,16 +56,9 @@ public class InstitutionInfoController {
 			}
 			modelMap.addAttribute("listimg", listimg);
 		}
-		String img1 = learnhub.getImg4jg();
-		String img2 = learnhub.getImg4idface(); 
-		if(StrEx.isEmpty(img1)){
-			img1 = img2;
-		}
-		if(img1.equals(img2)){
-			img2 = learnhub.getImg4idback();
-		}
+		String img1 = learnhub.getImg4logo();
 		modelMap.addAttribute("img1", img1);
-		modelMap.addAttribute("img2", img2);
+		
 		return "center/basicInformation";
 	}
 
@@ -172,6 +165,26 @@ public class InstitutionInfoController {
 		Map map = Svc.getMapAllParams(request);
 		String imgs = MapEx.getString(map, "imgs");
 		learnhub.setImgr4Cover(imgs);
+		LearnhubEntity.update(learnhub);
+		result = Utls.tipMap(result, Utls.Status_Success, "成功!");
+		Utls.writeAndClose(response, result);
+	}
+	
+	/*** 修改Logo图片 **/
+	@RequestMapping("/logo")
+	public void logo(HttpServletRequest request,
+			HttpServletResponse response, HttpSession session) {
+		Map result = new HashMap();
+		Learnhub learnhub = CenterController.getLhub(session);
+		if (learnhub == null) {
+			result = Utls.tipMap(result, Utls.Status_Erro,
+					"失败,Session失效,请重新登录!");
+			Utls.writeAndClose(response, result);
+			return;
+		}
+		Map map = Svc.getMapAllParams(request);
+		String imgs = MapEx.getString(map, "imgurl");
+		learnhub.setImg4logo(imgs);
 		LearnhubEntity.update(learnhub);
 		result = Utls.tipMap(result, Utls.Status_Success, "成功!");
 		Utls.writeAndClose(response, result);

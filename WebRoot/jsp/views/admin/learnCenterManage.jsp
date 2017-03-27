@@ -65,9 +65,9 @@
                     <th width="70">学习中心</th>
                     <th width="70">联系人</th>
                     <th width="50">类型</th>
-                    <th width="80">QQ邮箱</th>
                     <th width="120">所在地</th>
                     <th width="80">登录用户名</th>
+                    <th width="80">登录密码</th>
                     <th width="50">成交量</th>
                     <th width="60">成交金额</th>
                     <th width="60">题库提成</th>
@@ -93,9 +93,9 @@
 					 		   机构
 					 		 </c:if>
 				 	    </td>
-				 		<td>${learnhub.qq}</td>
 				 		<td>${learnhub.seat}</td> 
 				 		<td>${learnhub.accountFkAccountid.phone}</td>
+				 		<td>${learnhub.accountFkAccountid.lgpwd}</td>
 				 		<td>${learnhub.volume}</td>
 				 		<td>${learnhub.moneyAll}</td>
 				 		<td></td>

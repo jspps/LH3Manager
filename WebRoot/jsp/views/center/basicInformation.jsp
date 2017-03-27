@@ -32,9 +32,15 @@
     <div class="user_content">
     	<div class="user_info f_st">
         	<div class="user_img fr">
-            	<span class="span_img"><img src="${img1}" width="147" height="177"/></span>
-            	<span class="span_img"><img src="${img2}" width="147" height="177"/></span>
-            	
+            	<div>
+	            	<span class="span_img"><img src="${img1}" width="136" height="84" id="lh_logo" /></span>
+	            	<span class="upload_ts">Logo:长136像*宽84像素</span>
+	            	<div style="height:40px;">
+	            		<input type="file" name="uploadImg" id="logo_img_id" style="margin:10px 0 0 0;float:left;width:75px;height:25px;">
+	                	<input value="上传Logo" type="button" class="btn1" onclick="uploadImg('logo_img_id','lh_logo');">
+	            	</div>
+                </div>
+            	<br />
             	<P>审核状态：
 		 		<c:choose>
 		 		<c:when test="${user.examineStatus == 2}"><font color="red">不通过</font></c:when>
@@ -102,19 +108,27 @@
             <tr>
             	<th>类型：</th>
             	<td>
-            	<c:if test="${user.type=='1'}">
-		 		 个人
-		 		 </c:if>
-		 		 <c:if test="${user.type=='2'}">
-		 		机构
-		 		 </c:if>
+            	<c:choose>
+            	<c:when test="${user.type=='1'}">
+            	 个人
+            	</c:when>
+            	<c:otherwise>
+            	机构
+            	</c:otherwise>
+            	</c:choose>
             	</td>
             </tr>
             <tr>
             	<th>销售模式：</th>
 		 		<td>
-		 			<c:if test="${user.salesmode=='1'}"> 代理</c:if>
-		 			<c:if test="${user.salesmode=='2'}">自行</c:if>
+		 		<c:choose>
+            	<c:when test="${user.salesmode=='1'}">
+            	 代理
+            	</c:when>
+            	<c:otherwise>
+            	自行
+            	</c:otherwise>
+            	</c:choose>
 		 		</td>
             </tr>
             <tr>
@@ -169,7 +183,7 @@
              <div class="upload_img">
              	<div class="upload">
                 	 <input type="file" name="uploadImg" id="fine_img_id">
-                	 <input value="上传" type="button" class="btn1" onclick="uploadImg('fine_img_id','img_value_id','img_url_id');">
+                	 <input value="上传" type="button" class="btn1" onclick="uploadImg('fine_img_id');">
                		 <span class="upload_ts">图片:长800像*宽300像素</span>
                 </div>
      
@@ -220,45 +234,61 @@ function exchange(a,b){
     modimg(urlimgs);
 }; 
 
-function uploadImg(fileId,hiddenId,ImgId){
-	  if($("#"+fileId).val()==""){
-		   alert("请选择要上传的图片");
-	   }else{
-	 	    //图片上传
-	        $.ajaxFileUpload({
-	            url:"center/uploadImg", 
-	            secureuri:false, 
-	            fileElementId:fileId, 
-	            dataType: 'xml',
-	            success: function (data, status){
-	            	databackImg(data,fileId,hiddenId,ImgId);
-	            },
-	            error: function (data, status, e){
-	            	databackImg(data,fileId,hiddenId,ImgId);
-	            }
-	        });   
-	   }
-
-	}
+function uploadImg(fileId,logoId){
+  if($("#"+fileId).val()==""){
+	   alert("请选择要上传的图片");
+   }else{
+ 	    //图片上传
+        $.ajaxFileUpload({
+            url:"center/uploadImg", 
+            secureuri:false, 
+            fileElementId:fileId, 
+            dataType: 'xml',
+            success: function (data, status){
+            	databackImg(data,fileId,logoId);
+            },
+            error: function (data, status, e){
+            	databackImg(data,fileId,logoId);
+            }
+        });   
+   }
+}
 	
- function databackImg(data,fileId,hiddenId,ImgId){
-		var val = data.responseText;
-		var aa= 5;
-		if(window.navigator.userAgent.indexOf("Chrome") !== -1){
-			aa = 59;
-		}
-		data = val.substring(aa,val.length-6);
-		data = jQuery.parseJSON(data);
-		if(data.status==1){
+ function databackImg(data,fileId,logoId){
+	var val = data.responseText;
+	var aa= 5;
+	if(window.navigator.userAgent.indexOf("Chrome") !== -1){
+		aa = 59;
+	}
+	data = val.substring(aa,val.length-6);
+	data = jQuery.parseJSON(data);
+	if(data.status==1){
+		var url=data.msg;
+		if(!!logoId){
+			upLogoVal(url);
+		}else{
 			var imgs = "${user.imgr4Cover}";
-			var url=data.msg;
 			imgs = imgs+url+",";
 			modimg(imgs);
-	    }else{
-	        alert(data.msg);
-	    }
-	}
+		}
+    }else{
+        alert(data.msg);
+    }
+}
  
+function upLogoVal(imgurl){
+	jQuery.messager.progress({
+			title:'请等待',
+			text:'提交数据中...',
+			interval:700
+		});
+		jQuery.post("center/logo", {"imgurl":imgurl}, function(data) {
+			jQuery.messager.progress('close');
+				if(data.status==1){
+					location.replace(location);
+				}
+		}, "json");
+}
  
 function modimg(imgs){
 		jQuery.messager.progress({
