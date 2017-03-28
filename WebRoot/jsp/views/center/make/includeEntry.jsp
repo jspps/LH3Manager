@@ -8,33 +8,14 @@
 			+ path + "/";
 %>
 <c:set var="num" value="0"></c:set>
-
 <div class="bjsj_left">
+<!-- 试卷编写左边数据列表 -->
 <a href="javascript:void(0);" class="a_yl" onclick="viewExam();">预览本试卷</a>
 <p class="p_1"><a class="fr a_1" href="javascript:void(0);" onclick="viewExamCatalog();">试卷修改</a></p>
 <c:forEach items="${examcatalogs}" var="ent">
 	<div class="tim f_st"> 
        	<div class="p_2">
        		<div>
-       			<!-- 
-	       		<c:choose>
-	       		<c:when test="${ent.catalogType == 7 && ent.gid > 0}">
-	       		<a href="javascript:void(0);" onclick="addQuestion4Left(${ent.examid},${ent.id},${ent.catalogType},${ent.gid});" onmouseover="catalogOnMouseOver(${ent.id});" onmouseout="catalogOnMouseOut(${ent.id});">
-	       			<c:if test="${ent.gid == 1}">单选题</c:if>
-	       			<c:if test="${ent.gid == 2}">多选题</c:if>
-	       			<c:if test="${ent.gid == 3}">判断题</c:if>
-	       			<c:if test="${ent.gid == 4}">填空题</c:if>
-	       			<c:if test="${ent.gid == 5}">简答题</c:if>
-	       			<c:if test="${ent.gid == 6}">论述题</c:if>
-	       			&nbsp;&nbsp;${ent.titleEllipsis};
-	       		</a>
-	       		</c:when>
-	       		<c:otherwise>
-	       		<a href="javascript:void(0);" onclick="addQuestion4Left(${ent.examid},${ent.id},${ent.catalogType},${ent.gid});" onmouseover="catalogOnMouseOver(${ent.id});" onmouseout="catalogOnMouseOut(${ent.id});">${ent.serial}.${ent.bigtypes}&nbsp;&nbsp;${ent.titleEllipsis}</a>
-	       		</c:otherwise>
-	       		</c:choose>
-	       		 -->
-	       		 
 	       		<a href="javascript:void(0);" onclick="addQuestion4Left(${ent.examid},${ent.id},${ent.catalogType},${ent.gid});" onmouseover="catalogOnMouseOver(${ent.id});" onmouseout="catalogOnMouseOut(${ent.id});">${ent.titleEllipsis}</a>
 	       		<a href="javascript:void(0);" class="del"></a>
        		</div>

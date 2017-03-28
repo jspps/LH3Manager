@@ -251,9 +251,6 @@
 	   	<input type="hidden" value="1" name="kindclassId" />
    	</form>
 	<script type="text/javascript">
-	
-		var tmpKEObj = {};
-		
 		function click2SetKind(){
 			$("#fm_go2_makekind").submit();
 		};

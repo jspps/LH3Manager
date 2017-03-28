@@ -18,10 +18,36 @@
 <script type="text/javascript" src="${appPath}/jsp/js/kindeditor4.1.11/kindeditor-all-min.js"></script>
 <script type="text/javascript" src="${appPath}/jsp/js/kindeditor4.1.11/lang/zh-CN.js"></script>
 <script type="text/javascript">
+var tmpKEObj = {};
+
 function isCreateKE(){
 	return false;
 }
 
+function createKEOne(K,options,id){
+	var ret = null;
+	if(null != options && options && typeof(options) == "object"){
+		ret = K.create('#'+id,options);
+	}else{
+		ret = K.create('#'+id);
+	}
+	
+	tmpKEObj[id] = ret;
+	return ret;
+}
+
+//关闭编辑器
+function syncKEOne(id){
+	var tmp = tmpKEObj[id];
+	if(tmp){
+		tmp.sync();
+	}else{
+		if(window.editor){
+			window.editor.sync();
+		}
+	}
+}
+	
 function createKEFunc(K,options){
 	return null;
 }

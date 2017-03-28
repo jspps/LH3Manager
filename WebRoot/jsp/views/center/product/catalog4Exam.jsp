@@ -340,27 +340,12 @@
 		return jqTxts.length > 0;
 	}
 	
-	function syncKEOne(id){
-		var tmp = tmpKEObj[id];
-		if(tmp){
-			tmp.sync();
-		}
-	}
-	
-	function createKEOne(K,options,id){
-		if(null != options && options && typeof(options) == "object"){
-			return K.create('#'+id,options);
-		}
-		return K.create('#'+id);
-	}
-	
 	function createKEFunc(K,options){
 		var jqTxts = $("textarea[keval]");
 		var ret = null;
 		jqTxts.each(function(ind){
 			var id = $(this).attr("id");
-			tmpKEObj[id] = createKEOne(K,options,id);
-			ret = tmpKEObj[id]; 
+			ret = createKEOne(K,options,id);
 		});
 		return ret;
 	}

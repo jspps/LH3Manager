@@ -215,7 +215,7 @@ function  sheditor(id){
 
 function operatingMaxKind(){
 	//关闭编辑器
-	window.editor.sync();
+	syncKEOne(0);
 	
 	var kindclassid = "${kindclassId}";
 	var kindid = "${kind.id}";
@@ -384,10 +384,7 @@ function isCreateKE(){
 }
 
 function createKEFunc(K,options){
-	if(null != options && options && typeof(options) == "object"){
-		return K.create('#max_textarea',options);
-	}
-	return K.create('#max_textarea');
+	return createKEOne(K,options,"max_textarea");
 }
 // ========= 设置界面编辑器 end ==========
 </script>

@@ -45,28 +45,10 @@
         <input name="examid" type="hidden" value="${examid}"><!-- 所属试卷id -->
     	<div class="sjsm">
         	<p>输入内容：</p>
-        	<div class="text text_1"><textarea  nullmsg="内容不能为空"  name="content">${optq.content}</textarea></div>
+        	<div class="text text_1"><textarea  nullmsg="内容不能为空"  name="content" id="question_content" keval="1">${optq.content}</textarea></div>
         </div>
         
-        <div class="sc_sp f_st"> 
-           <div class="fl sc_1">
-               <a href="javascript:void(0);" class="a_2 fr" id="delIdImgPic">删除</a>
-               <div class="upload-frame a_1 fr">
-					<a href="javascript:void(0);" class="btn_addPic" id="btn_addPic2">
-				        <span id="liulan" class="a_1">上传</span>
-				        <input type="file" id="fileIdImgPic" name="uploadImg"  class="filePrew picuterUpLoad">
-				    </a>
-				</div>
-            	<span>上传图片:</span>
-            	<input name="imgPic" id="imgPicInpHidden" type="hidden" value="${optq.imgPic}">
-                <a href="javascript:void(0);"  target="_blank" class="a_3 sp_shangchuan" id="imgPicA">
-                <c:if test="${optq.imgPic != ''}">
-                <img src="${optq.imgPic}" name="img_look" />
-                </c:if>
-                </a>
-            </div>
-        	<i class="clear"></i>
-      	</div>
+       <jsp:include page="up_pic.jsp" />
       	
         <div class="sc_sp f_st"> 
            <div class="fl sc_1">
@@ -116,7 +98,7 @@
         
        <div class="sjsm">
         	<p>本题解析：</p>
-        	<div class="text text_1"><textarea   name="analyse">${optq.analyse}</textarea></div>
+        	<div class="text text_1"><textarea name="analyse" id="question_analyse" keval="1">${optq.analyse}</textarea></div>
         </div>
         
      
@@ -194,6 +176,8 @@
   	}
   	
 	function operating(formId){
+		syncKEOne("question_content");
+		syncKEOne("question_analyse");
 		if(jiaoyan('#'+formId+' :input')) {
 			var bool = true;
 			$(".checkboxright").each(function(){

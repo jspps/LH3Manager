@@ -85,7 +85,7 @@
 	<script type="text/javascript">
 		function submitChanged(that) {
 			//关闭编辑器
-			window.editor.sync();
+			syncKEOne(0);
 			
 			var jqForm = $(that);
 			var id = $("#cfg_guid_id").val();
@@ -113,10 +113,7 @@
 		}
 		
 		function createKEFunc(K,options){
-			if(null != options && options && typeof(options) == "object"){
-				return K.create('#guid_cont',options);
-			}
-			return K.create('#guid_cont');
+			return createKEOne(K,options,"guid_cont");
 		}
 		// ========= 设置界面编辑器 end ==========
 	</script>

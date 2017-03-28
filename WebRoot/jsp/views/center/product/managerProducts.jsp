@@ -75,10 +75,18 @@
 	                        <td>${ent.coures.profitOwner}%</td>
 	                    	<td>${ent.coures.deposit}%</td>
 	                    	<td>${ent.coures.wrong}%</td>
-		                   	<td>
-		                   	<input type="radio" name="complete_${ent.id}" <c:if test="${ent.complete == 1 }">checked="checked"</c:if>  onclick="completeproduct(${ent.id},1);">完成
-		                   	&nbsp;&nbsp;
-		                   	<input type="radio" name="complete_${ent.id}" <c:if test="${ent.complete == 0 }">checked="checked"</c:if>    onclick="completeproduct(${ent.id},0);">未完成 </td>
+		                   	<td style="text-align: center;">
+		                   	<c:choose>
+		                   	<c:when test="${ent.complete == 1}">
+		                   	<input type="radio" name="complete_${ent.id}" onclick="completeproduct(${ent.id},1);" checked="checked">已完成<br/>
+		                   	<input type="radio" name="complete_${ent.id}" onclick="completeproduct(${ent.id},0);">未完成
+		                   	</c:when>
+		                   	<c:otherwise>
+		                   	<input type="radio" name="complete_${ent.id}" onclick="completeproduct(${ent.id},1);">已完成 <br/>
+		                   	<input type="radio" name="complete_${ent.id}" onclick="completeproduct(${ent.id},0);" checked="checked">未完成
+		                   	</c:otherwise>
+		                   	</c:choose>
+		                   	</td>
 		                   	<td style="text-align: center;">
 		                   		<div style="float: left;width: 45%;">
 		                   		<c:choose>

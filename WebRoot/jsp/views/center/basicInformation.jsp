@@ -341,7 +341,7 @@ function operating(){
 
 function changeDesc(){
 	//关闭编辑器
-	window.editor.sync();
+	syncKEOne(0);
 	var desc = $("#lhub_desc").val();
 	if(desc == ""){
 		alert("简介不能为空!");
@@ -366,10 +366,7 @@ function isCreateKE(){
 }
 
 function createKEFunc(K,options){
-	if(null != options && options && typeof(options) == "object"){
-		return K.create('#lhub_desc',options);
-	}
-	return K.create('#lhub_desc');
+	return createKEOne(K,options,"lhub_desc");
 }
 // ========= 设置界面编辑器 end ==========
 </script> 
