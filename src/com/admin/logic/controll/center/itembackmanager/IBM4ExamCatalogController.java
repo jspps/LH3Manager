@@ -19,6 +19,7 @@ import com.admin.db.bean.Examcatalog;
 import com.admin.db.bean.Learnhub;
 import com.admin.db.entity.ExamEntity;
 import com.admin.db.entity.ExamcatalogEntity;
+import com.admin.db.entity.LearnhubEntity;
 import com.admin.db.entity.OptquestionEntity;
 import com.admin.logic.Utls;
 import com.admin.logic.controll.center.CenterController;
@@ -431,5 +432,25 @@ public class IBM4ExamCatalogController {
 			break;
 		}
 		return 0;
+	}
+	
+	/*** 打印界面 **/
+	@RequestMapping("/printView")
+	public String printView(HttpServletRequest request,
+			HttpServletResponse response, ModelMap modelMap, HttpSession session)
+			throws Exception {
+		Map map = Svc.getMapAllParams(request);
+		int examid = MapEx.getInt(map, "unqid");
+		Exam en = ExamEntity.getByKey(examid);
+		Learnhub lhub = LearnhubEntity.getByKey(en.getLhubid());
+		modelMap.addAttribute("exam", en);
+		modelMap.addAttribute("lhub", lhub);
+		
+		getExamCatalogs(en, modelMap);
+		List list = (List)modelMap.get("list");
+		modelMap.addAttribute("lens", list.size());
+		
+		modelMap.addAttribute("details", IBM4AddController.getExamDetailsByExamid(examid));
+		return "center/printView";
 	}
 }

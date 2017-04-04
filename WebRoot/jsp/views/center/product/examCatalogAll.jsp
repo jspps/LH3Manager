@@ -597,7 +597,11 @@
 			
 			</div>
 			<i class="clear"></i>
+			<form action="center/printView" name="fm_printView" id="fm_printView" method="post">
+			<input name="unqid" value=${exam != null ? exam.id : examid} type="hidden" />
+			</form>
 			<div class="lrst_btn">
+				<input type="button" value="打印试卷" class="lrbtn_2" onclick="OnClickPrintView();" />
 	    		<input type="button" value="设置试题销售套餐" class="lrbtn_2" onclick="click2SetKind();" />&nbsp;&nbsp;&nbsp;&nbsp;试题添加完毕后方可设置试题销售套餐！
 	        </div>
 			<i class="clear"></i>
@@ -638,6 +642,10 @@
 			
 			// getExamCatalogs();
 		});
+		
+		function OnClickPrintView(){
+			$("#fm_printView").submit();
+		}
 	</script>
 </body>
 </html>

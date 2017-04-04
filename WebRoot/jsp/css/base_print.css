@@ -438,7 +438,7 @@ persen-index .answer-box,
 
 .print-box {
     width: 200px;
-    height: 300px;
+    min-height: 300px;
     position: fixed;
     left: 50%;
     top: 20%;
@@ -536,7 +536,7 @@ persen-index .answer-box,
 }*/
 
 .print-box .select-list{
-    margin:35px 0 45px 48px;
+    margin:35px 0 20px 48px;
 }
 
 .print-box .select-list .mechanism{
@@ -557,6 +557,7 @@ persen-index .answer-box,
     background-color: #2ad2bc;
     border-radius: 3px;
     outline: none;
+    margin-top: 5px;
 }
 
 .print-box  .print-button:hover{

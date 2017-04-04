@@ -1,0 +1,233 @@
+<%@ page language="java" import="java.util.*" pageEncoding="UTF-8"%>
+<%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%
+String path = request.getContextPath();
+String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.getServerPort()+path+"/";
+%>
+
+<!DOCTYPE html>
+<html>
+  <head>
+    <base href="<%=basePath%>">
+    
+    <title>打印界面</title>
+    <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
+	<meta http-equiv="pragma" content="no-cache">
+	<meta http-equiv="cache-control" content="no-cache">
+	<meta http-equiv="expires" content="0">
+	
+	<style type="text/css" media=print>
+		.noprint{display : none }
+	</style>
+	<jsp:include page="../../common/common_css.jsp"></jsp:include>
+	<jsp:include page="../../common/common_easyui.jsp"></jsp:include>
+	<link rel="stylesheet" type="text/css" href="jsp/css/base_print.css" />
+
+  </head>
+  
+  <body>
+    <div id="noprint_menu" class="noprint">
+    	<object classid="CLSID:8856F961-340A-11D0-A96B-00C04FD705A2" height="0" width="0" id="WebBrowser"></object>
+    			
+		<!-- 打印预览 -->
+		<div class="print-box">
+			<span class="print-title">
+				打印预览
+			</span>
+			<span class="select-list">
+				<span class="mechanism">
+					<input type="checkbox" id="mechanism-logo" class="regular-checkbox" name="is_printLogo" id="is_printLogo" onchange="OnChangeLogo(this.checked)">
+					<label for="mechanism-logo">
+						<i>机构LOGO</i>
+					</label>
+				
+				</span>
+	
+				<span>
+					<input type="checkbox" id="contain-answer" class="regular-checkbox" name="is_printAnswer" id="is_printAnswer" onchange="OnChangeAnswer(this.checked)">
+					<label for="contain-answer">
+						<i>包含答案</i>
+					</label>
+				</span>
+				
+				
+			</span>
+			
+			<span class="print-button-box t-center">
+				<input type="button" class="print-button" value="预览" onclick="pagePreview()"/> 
+				<input type="button" class="print-button" value="打印" onclick="pagePrint()"/>
+				<input type="button" class="print-button" value="页面设置" onclick="pageSetup()"/>
+			</span>
+			<div style="padding: 10px 0 0 0"></div>
+		</div>
+    </div>
+	<div>
+		<div class="p-container persen-index">
+			<div class="logo-box">
+				<a href="javascript:void(0)">
+					<img src="${lhub.img4logo}" width="136" height="84" id="lh_logo" />
+				</a>
+			</div>
+
+			<div class="persen-content">
+				<h1 class="test-title t-center">${exam.name }</h1>
+				<p class="test-dec t-center">
+					<span class="time">考试时间：${exam.examtime }分钟</span>
+					<span class="mark">总分：${exam.score }分</span>
+				</p>
+
+				<!-- 考生信息 -->
+				<div class="examinee-info">
+					<span class="name">
+						<label>姓名：</label>
+						<input type="text" class="examinee-input" name="">
+					</span>
+					<span class="school">
+						<label>学校：</label>
+						<input type="text" class="examinee-input" name="">
+					</span>
+					<span class="class-name">
+						<label>班级：</label>
+						<input type="text" class="examinee-input" name="">
+					</span>
+				</div>
+
+				<!-- 试题说明 -->
+				<dl class="question-explain">
+					<dt>试题说明：</dt>
+					<dd>${exam.descstr }</dd>
+				</dl>
+
+				<!-- 题号分值 -->
+				<table class="score">
+					<col width="100px" />
+					<c:forEach begin="0" end="${lens - 1}" step="1">
+					<col width="136px" />
+					</c:forEach>
+					<col width="136px" />
+					<thead>
+						<tr>
+							<th>题号</th>
+							<c:forEach items="${list}" var="item">
+								<th>${item.serial }（${item.everyScore * item.num}分）</th>
+							</c:forEach>
+							<th>总分（${exam.score}分）</th>
+						</tr>
+					</thead>
+
+					<tbody>
+						<tr>
+							<td>得分</td>
+							<c:forEach begin="0" end="${lens - 1}" step="1">
+							<td></td>
+							</c:forEach>
+							<td></td>
+						</tr>
+					</tbody>
+				</table>
+
+				<!-- 测试题列表	 -->
+				<div class="question-box">
+<c:forEach items="${details}" var="ent">
+<c:set var="num" value="1"></c:set>
+<div class="question-type">
+	<c:choose>
+	<c:when test="${ent.catalogType == 7 && ent.gid > 0}">
+	<h3 class="question-type-title">${ent.title }</h3>
+	</c:when>
+	<c:otherwise>
+	<h3 class="question-type-title">${ent.serial}、${ent.title }</h3>
+	</c:otherwise>
+	</c:choose>
+	<c:forEach items="${ent.listChild}" var = "child">
+	<div class="question-list">
+		<h4 class="question-title">
+			${num}.${child.content}
+		</h4>
+		<c:if test="${child.imgPic != null }">
+		<br/>
+		<img src="${child.imgPic}" />
+		</c:if>
+		<div class="answer-box">
+			<span class="l">
+				<i class="">正确答案：</i>
+				<em class="right">【${child.right_2}】</em>
+			</span>
+			<span>
+				<i class="">教材位置：</i>
+				<em>${child.position}</em>
+			</span>
+		</div>
+
+		<div class="result-box">
+			<span class="l">
+				<i class="">答题结果：</i>
+				<em class="error">A 【错误】</em>
+			</span>
+			<span>
+				<i class="">得分：</i>
+				<em class="error">【0分】</em>
+			</span>
+		</div>
+
+		<p class="analysis">
+			<em>本题解析：</em>${child.analyse}
+		</p>
+		<div style="padding: 8px 0 0 0"></div>	
+	</div>
+	<c:set var="num" value="${num + 1}"></c:set>
+	</c:forEach>
+</div>
+</c:forEach>
+				</div>
+
+			</div>
+
+		</div>
+	</div>
+	<script type="text/javascript">
+	function OnChangeLogo(isShow){
+		isShow = !!isShow;
+		if(isShow){
+			$("#lh_logo").show();
+		}else{
+			$("#lh_logo").hide();
+		}
+	}
+	
+	function OnChangeAnswer(isShow){
+		isShow = !!isShow;
+		if(isShow){
+			$(".answer-box").show();
+			// $(".result-box").show();
+			$(".analysis").show();
+		}else{
+			$(".answer-box").hide();
+			$(".result-box").hide();
+			$(".analysis").hide();
+		}
+	}
+	
+	var WebBrowser = document.getElementById("WebBrowser");
+	function pagePreview()  
+    {  
+        WebBrowser.ExecWB(7,1);
+    }  
+  
+    function pagePrint()  
+    {  
+        WebBrowser.ExecWB(6,1);
+    }  
+  
+    function pageSetup()  
+    {  
+        WebBrowser.ExecWB(8,1);  
+    }  
+	
+	$(function(){
+		OnChangeLogo();
+		OnChangeAnswer();
+	});
+	</script>
+  </body>
+</html>

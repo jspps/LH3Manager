@@ -43,12 +43,12 @@ import com.bowlong.util.MapEx;
 @RequestMapping("/doCenter")
 public class IBM4AddController {
 	/**
-	 * 根据试卷查询题形和排序
+	 * 取得试卷详情(目录+试题)
 	 * 
 	 * @param examid
 	 * @return
 	 */
-	private List<Map> getExamcatalogsByExamid(int examid) {
+	static public List<Map> getExamDetailsByExamid(int examid) {
 		List<Examcatalog> examcatalogs = ExamcatalogEntity.getByExamid(examid);
 
 		List<Map> lmResult = new ArrayList<Map>();
@@ -82,7 +82,20 @@ public class IBM4AddController {
 				gid = item.getGid();
 
 				Map map = item.toBasicMap();
-				map.put("titleEllipsis", StrEx.ellipsis(item.getTitle(), 10));
+
+				String elps = StrEx.ellipsis(item.getTitle(), 10);
+				int index = elps.indexOf("<img");
+				if (index != -1) {
+					elps = elps.substring(0, index);
+					elps += "...";
+				}
+
+				index = elps.indexOf("<p");
+				if (index != -1) {
+					elps = elps.substring(0, index);
+					elps += "...";
+				}
+				map.put("titleEllipsis", elps);
 				List<Optquestion> listChild = OptquestionEntity
 						.getByExamcatalogid(item.getId());
 				if (!ListEx.isEmpty(listChild)) {
@@ -133,8 +146,20 @@ public class IBM4AddController {
 					if (ec.getParentid() == parentid) {
 						index2++;
 						map = ec.toBasicMap();
-						map.put("titleEllipsis",
-								StrEx.ellipsis(ec.getTitle(), 10));
+
+						String elps = StrEx.ellipsis(ec.getTitle(), 10);
+						int index3 = elps.indexOf("<img");
+						if (index3 != -1) {
+							elps = elps.substring(0, index3);
+							elps += "...";
+						}
+
+						index3 = elps.indexOf("<p");
+						if (index3 != -1) {
+							elps = elps.substring(0, index3);
+							elps += "...";
+						}
+						map.put("titleEllipsis", elps);
 						List<Optquestion> listChild = OptquestionEntity
 								.getByExamcatalogid(ec.getId());
 						if (!ListEx.isEmpty(listChild)) {
@@ -166,7 +191,7 @@ public class IBM4AddController {
 		modelMap.addAttribute("product", product);
 		modelMap.addAttribute("exam", exam);
 		modelMap.addAttribute("examid", examid);
-		modelMap.addAttribute("examcatalogs", getExamcatalogsByExamid(examid));
+		modelMap.addAttribute("examcatalogs", getExamDetailsByExamid(examid));
 		modelMap.addAttribute("examcatalogid",
 				MapEx.getInt(map, "examcatalogid"));
 		return "center/make/editPapers";
@@ -192,7 +217,7 @@ public class IBM4AddController {
 		modelMap.addAttribute("curCursorType", 4);
 		modelMap.addAttribute("type", type);
 		modelMap.addAttribute("examid", examid);
-		modelMap.addAttribute("examcatalogs", getExamcatalogsByExamid(examid));
+		modelMap.addAttribute("examcatalogs", getExamDetailsByExamid(examid));
 		modelMap.addAttribute("examcatalogid",
 				MapEx.getInt(map, "examcatalogid"));
 
@@ -220,7 +245,7 @@ public class IBM4AddController {
 		modelMap.addAttribute("curCursorType", 4);
 		modelMap.addAttribute("type", type);
 		modelMap.addAttribute("examid", examid);
-		modelMap.addAttribute("examcatalogs", getExamcatalogsByExamid(examid));
+		modelMap.addAttribute("examcatalogs", getExamDetailsByExamid(examid));
 		modelMap.addAttribute("examcatalogid",
 				MapEx.getInt(map, "examcatalogid"));
 		return "center/make/doubleEntry";
@@ -247,7 +272,7 @@ public class IBM4AddController {
 		modelMap.addAttribute("curCursorType", 4);
 		modelMap.addAttribute("type", type);
 		modelMap.addAttribute("examid", examid);
-		modelMap.addAttribute("examcatalogs", getExamcatalogsByExamid(examid));
+		modelMap.addAttribute("examcatalogs", getExamDetailsByExamid(examid));
 		modelMap.addAttribute("examcatalogid",
 				MapEx.getInt(map, "examcatalogid"));
 		return "center/make/judgeEntry";
@@ -274,7 +299,7 @@ public class IBM4AddController {
 		modelMap.addAttribute("curCursorType", 4);
 		modelMap.addAttribute("type", type);
 		modelMap.addAttribute("examid", examid);
-		modelMap.addAttribute("examcatalogs", getExamcatalogsByExamid(examid));
+		modelMap.addAttribute("examcatalogs", getExamDetailsByExamid(examid));
 		modelMap.addAttribute("examcatalogid",
 				MapEx.getInt(map, "examcatalogid"));
 		return "center/make/fillBlankentry";
@@ -301,7 +326,7 @@ public class IBM4AddController {
 		modelMap.addAttribute("curCursorType", 4);
 		modelMap.addAttribute("type", type);
 		modelMap.addAttribute("examid", examid);
-		modelMap.addAttribute("examcatalogs", getExamcatalogsByExamid(examid));
+		modelMap.addAttribute("examcatalogs", getExamDetailsByExamid(examid));
 
 		modelMap.addAttribute("examcatalog",
 				ExamcatalogEntity.getByKey(MapEx.getInt(map, "examcatalogid")));
@@ -331,7 +356,7 @@ public class IBM4AddController {
 		modelMap.addAttribute("curCursorType", 4);
 		modelMap.addAttribute("type", type);
 		modelMap.addAttribute("examid", examid);
-		modelMap.addAttribute("examcatalogs", getExamcatalogsByExamid(examid));
+		modelMap.addAttribute("examcatalogs", getExamDetailsByExamid(examid));
 
 		modelMap.addAttribute("examcatalog",
 				ExamcatalogEntity.getByKey(MapEx.getInt(map, "examcatalogid")));

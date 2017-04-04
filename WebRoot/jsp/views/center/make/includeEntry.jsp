@@ -11,12 +11,22 @@
 <div class="bjsj_left">
 <!-- 试卷编写左边数据列表 -->
 <a href="javascript:void(0);" class="a_yl" onclick="viewExam();">预览本试卷</a>
-<p class="p_1"><a class="fr a_1" href="javascript:void(0);" onclick="viewExamCatalog();">试卷修改</a></p>
+<p class="p_1">
+	<a class="fr a_1" href="javascript:void(0);" onclick="viewExamCatalog();">试卷修改</a>
+	<div style="text-align: center;display: none;" id="print_cursor">
+		<a class="a_add" href="javascript:void(0)" onclick="OnClickPrintView()">打印试卷</a>
+		<form action="center/printView" name="fm_printView" id="fm_printView" method="post">
+		<input name="unqid" value=${exam != null ? exam.id : examid} type="hidden" />
+		</form>
+	</div>
+</p>
 <c:forEach items="${examcatalogs}" var="ent">
 	<div class="tim f_st"> 
        	<div class="p_2">
        		<div>
-	       		<a href="javascript:void(0);" onclick="addQuestion4Left(${ent.examid},${ent.id},${ent.catalogType},${ent.gid});" onmouseover="catalogOnMouseOver(${ent.id});" onmouseout="catalogOnMouseOut(${ent.id});">${ent.titleEllipsis}</a>
+	       		<a href="javascript:void(0);" onclick="addQuestion4Left(${ent.examid},${ent.id},${ent.catalogType},${ent.gid});" onmouseover="catalogOnMouseOver(${ent.id});" onmouseout="catalogOnMouseOut(${ent.id});">
+	       			${ent.titleEllipsis}
+	       		</a>
 	       		<a href="javascript:void(0);" class="del"></a>
        		</div>
        		<i class="clear"></i>
@@ -166,4 +176,8 @@ function addQuestion4Left(examid,examcatalogid,catalogType,gid){
 	function catalogOnMouseOut(catalogid){
 		$("div[name="+catalogid+"]").hide();
 	};
+	
+	function OnClickPrintView(){
+		$("#fm_printView").submit();
+	}
 </script>
