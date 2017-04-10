@@ -27,7 +27,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
   
   <body>
     <div id="noprint_menu" class="noprint">
-    	<object classid="CLSID:8856F961-340A-11D0-A96B-00C04FD705A2" height="0" width="0" id="WebBrowser"></object>
+    	<!-- <object classid="CLSID:8856F961-340A-11D0-A96B-00C04FD705A2" height="0" width="0" id="WebBrowser"></object> -->
     			
 		<!-- 打印预览 -->
 		<div class="print-box">
@@ -54,9 +54,9 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			</span>
 			
 			<span class="print-button-box t-center">
-				<input type="button" class="print-button" value="预览" onclick="pagePreview()"/> 
+				<!-- <input type="button" class="print-button" value="预览" onclick="pagePreview()"/>  --> 
 				<input type="button" class="print-button" value="打印" onclick="pagePrint()"/>
-				<input type="button" class="print-button" value="页面设置" onclick="pageSetup()"/>
+				<!-- <input type="button" class="print-button" value="页面设置" onclick="pageSetup()"/>  -->
 			</span>
 			<div style="padding: 10px 0 0 0"></div>
 		</div>
@@ -142,7 +142,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	<c:forEach items="${ent.listChild}" var = "child">
 	<div class="question-list">
 		<h4 class="question-title">
-			${num}.${child.content}
+<pre>${num}.${child.content}</pre>
 		</h4>
 		<c:if test="${child.imgPic != null }">
 		<br/>
@@ -208,6 +208,8 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		}
 	}
 	
+	/***
+	// 这个只支持IE浏览器
 	var WebBrowser = document.getElementById("WebBrowser");
 	function pagePreview()  
     {  
@@ -223,6 +225,28 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
     {  
         WebBrowser.ExecWB(8,1);  
     }  
+    */
+    
+    function pagePrint()  
+    {  
+        prePagePrint(11);
+    }
+    
+    function prePagePrint(page){
+    	if(page < 10){
+	    	var bdhtml = window.document.body.innerHTML;//获取当前页的html代码
+	    	var sprnstr = "<!--startprint"+oper+"-->";//设置打印开始区域
+			var eprnstr = "<!--endprint"+oper+"-->";//设置打印结束区域
+			var prnhtml = bdhtml.substring(bdhtml.indexOf(sprnstr)+18); //从开始代码向后取html
+			
+			var prnhtml=prnhtml.substring(0,prnhtml.indexOf(eprnstr));//从结束代码向前取html
+			window.document.body.innerHTML = prnhtml;
+			window.print();
+			window.document.body.innerHTML = bdhtml;
+		}else{
+			window.print();
+		}
+    }
 	
 	$(function(){
 		OnChangeLogo();
