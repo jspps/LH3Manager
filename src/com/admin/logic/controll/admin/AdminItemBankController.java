@@ -85,10 +85,10 @@ public class AdminItemBankController {
 			String vStr = "";
 			for (Entry<String, Object> entry : params4Search.entrySet()) {
 				vStr = entry.getValue().toString();
-				if(StrEx.isEmptyTrim(vStr) || "-1".equals(vStr))
+				if (StrEx.isEmptyTrim(vStr) || "-1".equals(vStr))
 					continue;
 				if (entry.getValue() instanceof String) {
-					params.put(entry.getKey() + " = '", vStr+"'");
+					params.put(entry.getKey() + " = '", vStr + "'");
 					continue;
 				}
 				params.put(entry.getKey() + " = ", vStr);
@@ -98,7 +98,7 @@ public class AdminItemBankController {
 		PageAdcourses pageWrap = new PageAdcourses();
 		PageEnt<Adcourses> pageEnt = pageWrap.getPage(params, page, pageSize);
 		modelMap.addAttribute("pageEnt", pageEnt);
-		
+
 		List<Adqdepartment> adqdepartments = AdqdepartmentEntity.getAll();
 		modelMap.addAttribute("adqdepartments", adqdepartments);
 		return "admin/questionManage_set";
@@ -228,11 +228,11 @@ public class AdminItemBankController {
 				return;
 			}
 
-			String imgurl4major = AdcoursesEntity.getImg4NmMajor(departid,
-					nmMajor);
-			if (StrEx.isEmpty(imgurl4major)) {
-				imgurl4major = getMajoryImg(departid);
-			}
+			// String imgurl4major = AdcoursesEntity.getImg4NmMajor(departid,
+			// nmMajor);
+			// if (StrEx.isEmpty(imgurl4major)) {
+			// imgurl4major = getMajoryImg(departid);
+			// }
 
 			int profitAgent = MapEx.getInt(map, "profitAgent"); // '代理商利润百分百',
 			int profitOwner = MapEx.getInt(map, "profitOwner"); // '题库拥有者利润百分比',
@@ -245,7 +245,7 @@ public class AdminItemBankController {
 
 			Adcourses adcs = Adcourses.newAdcourses(0, departid, nmMajor,
 					nmLevel, nmSub, nmArea, profitAgent, profitOwner, deposit,
-					bonus, wrong, program, art, 0, createtime, imgurl4major);
+					bonus, wrong, program, art, 0, createtime);
 			adcs = AdcoursesEntity.insert(adcs);
 			if (adcs != null && adcs.getCid() != 0) {
 				result = Utls.tipMap(result, Utls.Status_Success, "成功!");
