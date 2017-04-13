@@ -440,8 +440,13 @@ public class IBM4ExamCatalogController {
 			HttpServletResponse response, ModelMap modelMap, HttpSession session)
 			throws Exception {
 		Map map = Svc.getMapAllParams(request);
+		
 		int examid = MapEx.getInt(map, "unqid");
 		Exam en = ExamEntity.getByKey(examid);
+		if (en == null) {
+			return "center/userlogin";
+		}
+		
 		Learnhub lhub = LearnhubEntity.getByKey(en.getLhubid());
 		modelMap.addAttribute("exam", en);
 		modelMap.addAttribute("lhub", lhub);
