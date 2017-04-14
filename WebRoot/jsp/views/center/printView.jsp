@@ -19,6 +19,16 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	<style type="text/css" media=print>
 		.noprint{display : none }
 	</style>
+	<style type="text/css">
+	pre{
+		white-space:pre-wrap;
+		white-space:-moz-pre-wrap;
+		white-space:-pre-wrap;
+		white-space:-o-pre-wrap;
+		word-wrap:break-word;
+		overflow: auto;
+	}
+	</style>
 	<jsp:include page="../../common/common_css.jsp"></jsp:include>
 	<jsp:include page="../../common/common_easyui.jsp"></jsp:include>
 	<link rel="stylesheet" type="text/css" href="jsp/css/base_print.css" />

@@ -102,7 +102,7 @@
 			                        </span>
 		                        </th>
 		                    </tr>
-		                    <tr id = "exam_catalog_num">
+		                    <tr id = "exam_catalog_num_td">
 		                    	<th colspan="4">
 		                       		<div class="txsz_bg" style="float:left; border:0px; padding-left:15px;">
 		                                <span style="float:left; margin-right:180px;">
@@ -229,9 +229,9 @@
 						
 						function chgJudgeBigtypes(val){
 							if("案例分析题" == val){
-								$("#exam_catalog_num").hide();
+								$("#exam_catalog_num_td").hide();
 							}else{
-								$("#exam_catalog_num").show();
+								$("#exam_catalog_num_td").show();
 							}
 						}
 		            </script>
