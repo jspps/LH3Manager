@@ -27,6 +27,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		white-space:-o-pre-wrap;
 		word-wrap:break-word;
 		overflow: auto;
+		font-size: 14px;
 	}
 	</style>
 	<jsp:include page="../../common/common_css.jsp"></jsp:include>
