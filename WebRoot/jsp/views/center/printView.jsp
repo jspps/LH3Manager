@@ -155,7 +155,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		<h4 class="question-title">
 <pre>${num}.${child.content}</pre>
 		</h4>
-		<c:if test="${child.imgPic != null }">
+		<c:if test="${child.imgPic != null && child.imgPic != '' }">
 		<br/>
 		<img src="${child.imgPic}" />
 		</c:if>
