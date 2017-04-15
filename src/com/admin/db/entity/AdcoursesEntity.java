@@ -75,7 +75,7 @@ public class AdcoursesEntity extends AdcoursesInternal {
 		AdcoursesDAO DAO = AdcoursesDAO();
 		PStr pStr = PStr.b();
 		String sql = "";
-		pStr.a("SELECT imgurl4major,nmMajor FROM ", DAO.TABLENAME,
+		pStr.a("SELECT nmMajor FROM ", DAO.TABLENAME,
 				" WHERE 1 = 1 ");
 		if (departid > 0) {
 			pStr.a(" AND departid = ", departid);
@@ -95,32 +95,6 @@ public class AdcoursesEntity extends AdcoursesInternal {
 		return result;
 	}
 	
-	/*** 取得专业名列表 */
-	public static List<Map> getNmmajors(String nmMajor) {
-		AdcoursesDAO DAO = AdcoursesDAO();
-		PStr pStr = PStr.b();
-		String sql = "";
-		pStr.a("SELECT imgurl4major,nmMajor FROM ", DAO.TABLENAME,
-				" WHERE 1 = 1 ");
-		if (!StrEx.isEmptyTrim(nmMajor) && !"-1".equals(nmMajor)) {
-			pStr.a(" AND nmMajor like '%", nmMajor, "%'");
-		}
-
-		pStr.a(" GROUP BY nmMajor ");
-		pStr.a(" ORDER BY createtime DESC ");
-		List<Map> result = new ArrayList<Map>();
-		try {
-			sql = pStr.e();
-			List<Map> list = DAO.queryForList(sql);
-			if (!ListEx.isEmpty(list)) {
-				result.addAll(list);
-			}
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-		return result;
-	}
-
 	/*** 取得层级名列表 */
 	public static List<String> getNmlevels(int departid, String nmmajor) {
 		AdcoursesDAO DAO = AdcoursesDAO();
