@@ -86,7 +86,7 @@ public class IBM4AddController {
 			for (int i = 0; i < lens; i++) {
 				tmp = listChild.get(i).toBasicMap();
 				tmp.put("isOldContent",
-						listChild.get(i).getContent().indexOf("<p>") == -1);
+						listChild.get(i).getContent().indexOf("<p") == -1);
 				listChildMap.add(tmp);
 			}
 			

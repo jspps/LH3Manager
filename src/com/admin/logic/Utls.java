@@ -50,10 +50,13 @@ public class Utls extends TkitJsp {
 	};
 
 	static public final String getContent(int index, String content) {
-		int indP = content.indexOf("<p>");
-		if (indP == 0)
-			return content.substring(0, indP + 3) + index + "."
-					+ content.substring(indP + 3);
+		int indP = content.indexOf("<p");
+		if (indP == 0){
+			int indEnd = content.indexOf(">");
+			indEnd += indP + 1;
+			return content.substring(0, indEnd) + index + "."
+					+ content.substring(indEnd);
+		}
 		return index + "." + content;
 	}
 }
