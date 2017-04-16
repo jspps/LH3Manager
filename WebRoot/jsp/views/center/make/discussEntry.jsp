@@ -78,7 +78,7 @@
       	
         <div class="sjsm">
         	<p>正确答案：</p>
-        	<div class="text text_1"><textarea nullmsg="正确答案不能为空"  name="right">${optq.right_2}</textarea></div>
+        	<div class="text text_1"><textarea nullmsg="正确答案不能为空"  name="right" id="right_2" keval="1">${optq.right_2}</textarea></div>
         </div>
          <div class="sjsm">
         	<p>教材位置：</p>
@@ -130,6 +130,7 @@
   	
 	function operating(formId){
 		syncKEOne("question_content");
+		syncKEOne("right_2");
 		syncKEOne("question_analyse");
 		if(jiaoyan('#'+formId+' :input')) {
 			jQuery.messager.progress({
