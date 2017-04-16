@@ -1,10 +1,10 @@
 <%@ page language="java" import="java.util.*" pageEncoding="UTF-8"%>
 <%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@taglib uri="/tags" prefix="tag"%>
 <%
 String path = request.getContextPath();
 String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.getServerPort()+path+"/";
 %>
-
 <!DOCTYPE html>
 <html>
   <head>
@@ -19,17 +19,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	<style type="text/css" media=print>
 		.noprint{display : none }
 	</style>
-	<style type="text/css">
-	pre{
-		white-space:pre-wrap;
-		white-space:-moz-pre-wrap;
-		white-space:-pre-wrap;
-		white-space:-o-pre-wrap;
-		word-wrap:break-word;
-		overflow: auto;
-		font-size: 18px;
-	}
-	</style>
+	
 	<jsp:include page="../../common/common_css.jsp"></jsp:include>
 	<jsp:include page="../../common/common_easyui.jsp"></jsp:include>
 	<link rel="stylesheet" type="text/css" href="jsp/css/base_print.css" />
@@ -144,17 +134,24 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 <div class="question-type">
 	<c:choose>
 	<c:when test="${ent.catalogType == 7 && ent.gid > 0}">
-	<h3 class="question-type-title">${ent.title }</h3>
+	<div class="question-type-title">${ent.title }</div>
 	</c:when>
 	<c:otherwise>
-	<h3 class="question-type-title">${ent.serial}、${ent.title }</h3>
+	<div class="question-type-title">${ent.serial}、${ent.title }</div>
 	</c:otherwise>
 	</c:choose>
 	<c:forEach items="${ent.listChild}" var = "child">
 	<div class="question-list">
-		<h4 class="question-title">
+		<div class="question-title" style="font-size: 18px;">
+		<c:choose>
+		<c:when test="${child.isOldContent }">
 <pre>${num}.${child.content}</pre>
-		</h4>
+		</c:when>
+		<c:otherwise>
+		<tag:content index="${num}" content="${child.content}"></tag:content>
+		</c:otherwise>
+		</c:choose>
+		</div>
 		<c:if test="${child.imgPic != null && child.imgPic != '' }">
 		<br/>
 		<img src="${child.imgPic}" />

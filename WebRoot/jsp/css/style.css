@@ -516,13 +516,11 @@ overflow: hidden;
 .btn_div .tab_btn1{background:url(../imgs/btn1.png);height:45px;line-height:25px;border:0px;width:168px;font-size:18px;font-weight:bold;color:#fff; cursor:pointer;}
 .btn_div .tab_btn2{background:url(../imgs/btn1.png) no-repeat right center;height:45px;line-height:25px;border:0px;width:168px;font-size:18px;font-weight:bold;color:#fff; cursor:pointer;}
 
-
-
-
-
-
-
-
-
-
-
+.break_word,pre{
+	white-space:pre-wrap;
+	white-space:-moz-pre-wrap;
+	white-space:-pre-wrap;
+	white-space:-o-pre-wrap;
+	word-wrap:break-word;
+	overflow: auto;
+}

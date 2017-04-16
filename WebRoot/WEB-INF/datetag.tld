@@ -59,4 +59,18 @@
         </attribute>
     </tag>
     
+    <tag>
+		<name>content</name>
+		<tag-class>com.admin.logic.ContentTag</tag-class>
+		<attribute>
+			<name>index</name>
+			<required>true</required>
+			<rtexprvalue>true</rtexprvalue>
+		</attribute>
+		<attribute>
+			<name>content</name>
+			<required>true</required>
+			<rtexprvalue>true</rtexprvalue>
+		</attribute>
+	</tag>
 </taglib>

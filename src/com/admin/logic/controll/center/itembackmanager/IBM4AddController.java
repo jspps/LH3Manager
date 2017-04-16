@@ -42,6 +42,60 @@ import com.bowlong.util.MapEx;
 @Controller
 @RequestMapping("/doCenter")
 public class IBM4AddController {
+
+	// 是不是案例分析的根目录
+	static boolean isAnalysisCatalog(Examcatalog catalog) {
+		return (catalog.getCatalogType() == 7 && catalog.getGid() == 0);
+	}
+
+	// 是不是案例分析的子目录
+	static boolean isAnalysisChildCatalog(Examcatalog catalog) {
+		return (catalog.getCatalogType() == 7 && catalog.getGid() != 0);
+	}
+
+	// 目录 + list question
+	static Map ToMapCatalogAndListQuestion(Examcatalog catalog) {
+		Map map = catalog.toBasicMap();
+
+		String elps = StrEx.ellipsis(catalog.getTitle(), 10);
+		int index = elps.indexOf("<img");
+		if (index != -1) {
+			elps = elps.substring(0, index);
+			elps += "...";
+		}
+
+		index = elps.indexOf("<p");
+		if (index != -1) {
+			elps = elps.substring(0, index);
+			elps += "...";
+		}
+		map.put("titleEllipsis", elps);
+
+		boolean isAnalysisCatalog = isAnalysisCatalog(catalog);
+		if (!isAnalysisCatalog) {
+			List<Optquestion> listChild = OptquestionEntity
+					.getByExamcatalogid(catalog.getId());
+			int lens = 0;
+			List<Map> listChildMap = null;
+			if (!ListEx.isEmpty(listChild)) {
+				lens = listChild.size();
+				listChildMap = new ArrayList<Map>();
+			}
+
+			Map tmp = null;
+			for (int i = 0; i < lens; i++) {
+				tmp = listChild.get(i).toBasicMap();
+				tmp.put("isOldContent",
+						listChild.get(i).getContent().indexOf("<p>") == -1);
+				listChildMap.add(tmp);
+			}
+			
+			if (listChildMap != null)
+				map.put("listChild", listChildMap);
+		}
+		return map;
+	}
+
 	/**
 	 * 取得试卷详情(目录+试题)
 	 * 
@@ -63,9 +117,8 @@ public class IBM4AddController {
 				if (item.getStatus() != 0) {
 					continue;
 				}
-				int type = item.getCatalogType();
-				int gid = item.getGid();
-				if (type == 7 && gid != 0) {
+
+				if (isAnalysisChildCatalog(item)) {
 					continue;
 				}
 				tmpList.add(item);
@@ -73,40 +126,16 @@ public class IBM4AddController {
 			Collections.sort(tmpList, new ComparatorExamcatalog());
 
 			lens = tmpList.size();
-			int type = 0;
-			int gid = 0;
 			List<Integer> tmp2List = new ArrayList<Integer>();
 			for (int i = 0; i < lens; i++) {
 				Examcatalog item = tmpList.get(i);
-				type = item.getCatalogType();
-				gid = item.getGid();
-
-				Map map = item.toBasicMap();
-
-				String elps = StrEx.ellipsis(item.getTitle(), 10);
-				int index = elps.indexOf("<img");
-				if (index != -1) {
-					elps = elps.substring(0, index);
-					elps += "...";
-				}
-
-				index = elps.indexOf("<p");
-				if (index != -1) {
-					elps = elps.substring(0, index);
-					elps += "...";
-				}
-				map.put("titleEllipsis", elps);
-				List<Optquestion> listChild = OptquestionEntity
-						.getByExamcatalogid(item.getId());
-				if (!ListEx.isEmpty(listChild)) {
-					map.put("listChild", listChild);
-				}
-				lmResult.add(map);
-				examcatalogs.remove(item);
-
-				if (type == 7 && gid == 0) {
+				if (isAnalysisCatalog(item)) {
 					tmp2List.add(item.getId());
 				}
+
+				Map map = ToMapCatalogAndListQuestion(item);
+				lmResult.add(map);
+				examcatalogs.remove(item);
 			}
 
 			// 二级目录
@@ -145,26 +174,7 @@ public class IBM4AddController {
 
 					if (ec.getParentid() == parentid) {
 						index2++;
-						map = ec.toBasicMap();
-
-						String elps = StrEx.ellipsis(ec.getTitle(), 10);
-						int index3 = elps.indexOf("<img");
-						if (index3 != -1) {
-							elps = elps.substring(0, index3);
-							elps += "...";
-						}
-
-						index3 = elps.indexOf("<p");
-						if (index3 != -1) {
-							elps = elps.substring(0, index3);
-							elps += "...";
-						}
-						map.put("titleEllipsis", elps);
-						List<Optquestion> listChild = OptquestionEntity
-								.getByExamcatalogid(ec.getId());
-						if (!ListEx.isEmpty(listChild)) {
-							map.put("listChild", listChild);
-						}
+						map = ToMapCatalogAndListQuestion(ec);
 						lmResult.add(index + index2, map);
 					}
 				}

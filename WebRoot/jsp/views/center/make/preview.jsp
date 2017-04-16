@@ -1,7 +1,9 @@
 <%@page import="com.bowlong.lang.NumEx"%>
+<%@page import="com.admin.logic.Utls"%>
 <%@page language="java" import="java.util.*" pageEncoding="UTF-8"%>
 <%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
+
 <%
 	String path = request.getContextPath();
 	String basePath = request.getScheme() + "://"
@@ -29,6 +31,18 @@
 	}
 	String position = request.getParameter("position");
 	String analyse = request.getParameter("analyse");
+	
+	String strIsOld = request.getParameter("isOldContent");
+	boolean isOldContent = true;
+	if(strIsOld != null && strIsOld.length() > 0){
+		isOldContent = Boolean.parseBoolean(strIsOld);
+	}
+	
+	if(isOldContent){
+		content = vNum + "." + content;
+	}else{
+		content = Utls.getContent(vNum, content);
+	}
 %> 
 
 <div class="yp_div">
@@ -41,9 +55,19 @@
 <%}%>
 </div>
 <div style="word-wrap:break-word;">
+<%if(isOldContent){%>
 <pre>
-<%=vNum%>.<%=content%>
+<%}else{ %>
+<div>
+<%}%>
+<%=content%>
+<%if(isOldContent){%>
 </pre>
+<%}else{ %>
+</div>
+<%}%>
+
+
 <%if(imgPic != null && !imgPic.isEmpty()){%>
 <br/>
 <img src="<%=imgPic%>" />

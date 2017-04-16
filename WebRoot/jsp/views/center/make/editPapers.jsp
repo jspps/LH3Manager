@@ -80,6 +80,7 @@
 	            	<jsp:param value="${child.right_2}" name="right_2"/>
 	            	<jsp:param value="${child.position}" name="position"/>
 	            	<jsp:param value="${child.analyse}" name="analyse"/>
+	            	<jsp:param value="${child.isOldContent}" name="isOldContent"/>
 	            </jsp:include>
 	            <c:set var="num" value="${num + 1}"></c:set>
 	       	</c:forEach>
