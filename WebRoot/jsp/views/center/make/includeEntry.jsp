@@ -15,7 +15,7 @@
 	<a class="fr a_1" href="javascript:void(0);" onclick="viewExamCatalog();">试卷修改</a>
 	<div style="text-align: center;" id="print_cursor">
 		<a class="a_add" href="javascript:void(0)" onclick="OnClickPrintView()">打印试卷</a>
-		<form action="center/printView" name="fm_printView" id="fm_printView" method="post">
+		<form action="center/printView" name="fm_printView" id="fm_printView" method="post" target="_blank">
 		<input name="unqid" value=${exam != null ? exam.id : examid} type="hidden" />
 		</form>
 	</div>

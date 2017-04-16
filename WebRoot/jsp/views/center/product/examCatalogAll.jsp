@@ -597,7 +597,7 @@
 			
 			</div>
 			<i class="clear"></i>
-			<form action="center/printView" name="fm_printView" id="fm_printView" method="post">
+			<form action="center/printView" name="fm_printView" id="fm_printView" method="post" target="_blank">
 			<input name="unqid" value=${exam != null ? exam.id : examid} type="hidden" />
 			</form>
 			<div class="lrst_btn">
