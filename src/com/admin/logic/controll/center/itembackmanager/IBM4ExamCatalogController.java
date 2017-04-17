@@ -57,9 +57,9 @@ public class IBM4ExamCatalogController {
 
 		modelMap.addAttribute("exam", en);
 		modelMap.addAttribute("curCursorType", 3);
-		
-		getExamCatalogs(en, modelMap);
-		
+
+		getExamCatalogs(en, modelMap, true);
+
 		// examCatalogAll
 		return "center/product/examCatalogAll";
 	}
@@ -265,7 +265,7 @@ public class IBM4ExamCatalogController {
 	}
 
 	// 取得试卷目录结构
-	protected void getExamCatalogs(Exam en, ModelMap modelMap) {
+	protected int getExamCatalogs(Exam en, ModelMap modelMap, boolean isChild) {
 
 		params.clear();
 		params.put("examid", "=" + en.getId());
@@ -278,17 +278,19 @@ public class IBM4ExamCatalogController {
 			// 案例分析题的Index值
 			Ref<List<Integer>> ref = new Ref<List<Integer>>(null);
 			result = getLM4ExamCatalog(list, ref);
-
-			// 取得案例分析下面的目录结构
-			if (ref.val != null) {
-				for (Integer index : ref.val) {
-					Map mapCase = result.get(index);
-					int caseParentid = MapEx.getInt(mapCase, "id");
-					List<Examcatalog> lm4Case = ExamcatalogEntity
-							.getListByParentid(caseParentid);
-					if (!ListEx.isEmpty(lm4Case)) {
-						List<Map> listChild = getLM4ExamCatalog(lm4Case, null);
-						mapCase.put("listChild", listChild);
+			if (isChild) {
+				// 取得案例分析下面的目录结构
+				if (ref.val != null) {
+					for (Integer index : ref.val) {
+						Map mapCase = result.get(index);
+						int caseParentid = MapEx.getInt(mapCase, "id");
+						List<Examcatalog> lm4Case = ExamcatalogEntity
+								.getListByParentid(caseParentid);
+						if (!ListEx.isEmpty(lm4Case)) {
+							List<Map> listChild = getLM4ExamCatalog(lm4Case,
+									null);
+							mapCase.put("listChild", listChild);
+						}
 					}
 				}
 			}
@@ -296,6 +298,8 @@ public class IBM4ExamCatalogController {
 			result = new ArrayList<Map>();
 		}
 		modelMap.addAttribute("list", result);
+		
+		return result.size();
 	}
 
 	/*** 删除试卷目录 **/
@@ -433,29 +437,29 @@ public class IBM4ExamCatalogController {
 		}
 		return 0;
 	}
-	
+
 	/*** 打印界面 **/
 	@RequestMapping("/printView")
 	public String printView(HttpServletRequest request,
 			HttpServletResponse response, ModelMap modelMap, HttpSession session)
 			throws Exception {
 		Map map = Svc.getMapAllParams(request);
-		
+
 		int examid = MapEx.getInt(map, "unqid");
 		Exam en = ExamEntity.getByKey(examid);
 		if (en == null) {
 			return "center/userlogin";
 		}
-		
+
 		Learnhub lhub = LearnhubEntity.getByKey(en.getLhubid());
 		modelMap.addAttribute("exam", en);
 		modelMap.addAttribute("lhub", lhub);
-		
-		getExamCatalogs(en, modelMap);
-		List list = (List)modelMap.get("list");
-		modelMap.addAttribute("lens", list.size());
-		
-		modelMap.addAttribute("details", IBM4AddController.getExamDetailsByExamid(examid));
+
+		int lens = getExamCatalogs(en, modelMap, false);
+		modelMap.addAttribute("lens", lens);
+
+		modelMap.addAttribute("details",
+				IBM4AddController.getExamDetailsByExamid(examid));
 		return "center/printView";
 	}
 }
