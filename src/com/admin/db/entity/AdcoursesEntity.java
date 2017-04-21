@@ -75,13 +75,15 @@ public class AdcoursesEntity extends AdcoursesInternal {
 		AdcoursesDAO DAO = AdcoursesDAO();
 		PStr pStr = PStr.b();
 		String sql = "";
+		pStr.a("SELECT DISTINCT nmMajor FROM (");
 		pStr.a("SELECT nmMajor FROM ", DAO.TABLENAME,
 				" WHERE 1 = 1 ");
 		if (departid > 0) {
 			pStr.a(" AND departid = ", departid);
 		}
-		pStr.a(" GROUP BY nmMajor ");
+		pStr.a(" GROUP BY nmMajor,createtime ");
 		pStr.a(" ORDER BY createtime DESC ");
+		pStr.a(" ) AS Tmp");
 		List<Map> result = new ArrayList<Map>();
 		try {
 			sql = pStr.e();
@@ -94,24 +96,54 @@ public class AdcoursesEntity extends AdcoursesInternal {
 		}
 		return result;
 	}
-	
+
+	/*** 取得专业名列表 */
+	public static List<Map> getNmmajors(String nmMajor) {
+		AdcoursesDAO DAO = AdcoursesDAO();
+		PStr pStr = PStr.b();
+		String sql = "";
+		pStr.a("SELECT DISTINCT nmMajor FROM (");
+		pStr.a("SELECT nmMajor FROM ", DAO.TABLENAME,
+				" WHERE 1 = 1 ");
+		if (!StrEx.isEmptyTrim(nmMajor)) {
+			pStr.a(" AND nmMajor like '%", nmMajor, "%'");
+		}
+
+		pStr.a(" GROUP BY nmMajor,createtime ");
+		pStr.a(" ORDER BY createtime DESC ");
+		pStr.a(" ) AS Tmp");
+		List<Map> result = new ArrayList<Map>();
+		try {
+			sql = pStr.e();
+			List<Map> list = DAO.queryForList(sql);
+			if (!ListEx.isEmpty(list)) {
+				result.addAll(list);
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return result;
+	}
+
 	/*** 取得层级名列表 */
 	public static List<String> getNmlevels(int departid, String nmmajor) {
 		AdcoursesDAO DAO = AdcoursesDAO();
 		PStr pStr = PStr.b();
 		String sql = "";
+		pStr.a("SELECT DISTINCT nmLevel FROM (");
 		pStr.a("SELECT nmLevel FROM ", DAO.TABLENAME, " WHERE 1 = 1 ");
 		if (departid > 0) {
 			pStr.a(" AND departid = ", departid);
 		}
 
-		if (!StrEx.isEmptyTrim(nmmajor) && !"-1".equals(nmmajor)) {
+		if (!StrEx.isEmptyTrim(nmmajor)) {
 			pStr.a(" AND nmMajor = '", nmmajor + "'");
 		}
 
-		pStr.a(" GROUP BY nmLevel ");
+		pStr.a(" GROUP BY nmLevel,createtime ");
 
 		pStr.a(" ORDER BY createtime DESC ");
+		pStr.a(" ) AS Tmp");
 		List<String> result = new ArrayList<String>();
 		try {
 			sql = pStr.e();
@@ -135,22 +167,24 @@ public class AdcoursesEntity extends AdcoursesInternal {
 		AdcoursesDAO DAO = AdcoursesDAO();
 		PStr pStr = PStr.b();
 		String sql = "";
+		pStr.a("SELECT DISTINCT nmSub FROM (");
 		pStr.a("SELECT nmSub FROM ", DAO.TABLENAME, " WHERE 1 = 1 ");
 		if (departid > 0) {
 			pStr.a(" AND departid = ", departid);
 		}
 
-		if (!StrEx.isEmptyTrim(nmmajor) && !"-1".equals(nmmajor)) {
+		if (!StrEx.isEmptyTrim(nmmajor)) {
 			pStr.a(" AND nmMajor = '", nmmajor + "'");
 		}
 
-		if (!StrEx.isEmptyTrim(nmLevel) && !"-1".equals(nmLevel)) {
+		if (!StrEx.isEmptyTrim(nmLevel)) {
 			pStr.a(" AND nmLevel = '", nmLevel + "'");
 		}
 
-		pStr.a(" GROUP BY nmSub ");
+		pStr.a(" GROUP BY nmSub,createtime ");
 
 		pStr.a(" ORDER BY createtime DESC ");
+		pStr.a(" ) AS Tmp");
 		List<String> result = new ArrayList<String>();
 		try {
 			sql = pStr.e();
@@ -174,26 +208,28 @@ public class AdcoursesEntity extends AdcoursesInternal {
 		AdcoursesDAO DAO = AdcoursesDAO();
 		PStr pStr = PStr.b();
 		String sql = "";
+		pStr.a("SELECT DISTINCT nmArea FROM (");
 		pStr.a("SELECT nmArea FROM ", DAO.TABLENAME, " WHERE 1 = 1 ");
 		if (departid > 0) {
 			pStr.a(" AND departid = ", departid);
 		}
 
-		if (!StrEx.isEmptyTrim(nmmajor) && !"-1".equals(nmmajor)) {
+		if (!StrEx.isEmptyTrim(nmmajor)) {
 			pStr.a(" AND nmMajor = '", nmmajor, "'");
 		}
 
-		if (!StrEx.isEmptyTrim(nmLevel) && !"-1".equals(nmLevel)) {
+		if (!StrEx.isEmptyTrim(nmLevel)) {
 			pStr.a(" AND nmLevel = '", nmLevel, "'");
 		}
 
-		if (!StrEx.isEmptyTrim(nmSub) && !"-1".equals(nmSub)) {
+		if (!StrEx.isEmptyTrim(nmSub)) {
 			pStr.a(" AND nmSub = '", nmSub, "'");
 		}
 
-		pStr.a(" GROUP BY nmArea ");
+		pStr.a(" GROUP BY nmArea,createtime ");
 
 		pStr.a(" ORDER BY createtime DESC ");
+		pStr.a(" ) AS Tmp");
 		List<String> result = new ArrayList<String>();
 		try {
 			sql = pStr.e();
