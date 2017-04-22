@@ -1,1 +1,8 @@
 具体在什么地方用到，服务器上以前LH3Manager版本的lib里面有
+问题出现了：
+
+org.apache.jasper.JasperException: Unable to compile class for JSP: 
+An error occurred at line: 122 in the jsp file: /jsp/js/kindeditor4.1.11/jsp/upload_json.jsp
+JSONObject cannot be resolved to a type
+
+该对象是用于kindeditor4.1.11上传图片的java包
