@@ -75,11 +75,10 @@
 </div>
 <% if(!(type1_7 == 7 && gid0_6 == 0)){ %>
 <div>    
-	<p class="span">
+	<div class="span">
 		<span>正确答案：【<%=right_2%>】</span>
 		<span>教材位置：<%=position%></span>
-		<span><a href="javascript:void(0)"></a></span>
-	</p>
+	</div>
 </div>
 <div>
 	<p>本题解析：</p>
